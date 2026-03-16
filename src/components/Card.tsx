@@ -3,7 +3,7 @@
     import InteractiveCard from './InteractiveCard';
     import { Rating,Typography } from '@mui/material';
 
-    export default function Card({venueName,imgSrc,rating,onRatingChange}:{venueName:string,imgSrc:string,rating:number,onRatingChange: (e: React.SyntheticEvent, newValue: number | null) => void}){
+    export default function Card({venueName,imgSrc,rating,onRatingChange}:{venueName:string,imgSrc:string,rating?:number,onRatingChange?: (e: React.SyntheticEvent, newValue: number | null) => void}){
         
         return(
             <InteractiveCard contentName={venueName}>
@@ -19,7 +19,8 @@
                 className="h-[20%]  p-[10px] text-[20px] flex items-center font-bold text-[#FF7F50]">
                     {venueName}
                 </div>
-                <div onClick={(e)=>e.stopPropagation()}>
+                {
+                    onRatingChange? <div onClick={(e)=>e.stopPropagation()}>
                     <Typography component="legend" className='h-[20%]  p-[10px] text-[10px] flex items-center'>Rating</Typography>
                     <Rating className='p-[10px]'
                     id={`${venueName} Rating`}
@@ -27,7 +28,8 @@
                     data-testid={`${venueName} Rating`}
                     value={rating}
                     onChange={(event, newValue) => {onRatingChange(event,newValue);}}/>
-                </div>
+                </div>: ''
+                }
             </div>
         </InteractiveCard>
         );
